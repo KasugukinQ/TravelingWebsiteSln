@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TRAVEL STORE</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <style>
+        /* Add custom styles for the travel theme */
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .navbar-brand {
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            color: #007bff; /* Blue color for the brand */
+        }
+
+        .navbar-text {
+            font-size: 14px;
+            color: #6c757d; /* Gray color for the booking summary */
+        }
+
+        h3 {
+            font-family: 'Arial', sans-serif;
+            font-size: 20px;
+            color: #343a40; /* Dark gray color for category headings */
+        }
+        /* Add any other custom styles as needed */
+    </style>
+</head>
+<body>
+    <div class="bg-light p-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col navbar-brand">Welcome to TRAVEL STORE</div>
+                <div class="col-6 navbar-text text-end">
+                    <vc:Booking-summary />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 p-1">
+        <div id="categories" class="col-3">
+            <h3>Explore Destinations</h3>
+            <vc:navigation-menu />
+        </div>
+        <div class="col-9">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
