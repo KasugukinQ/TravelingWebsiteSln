@@ -30,7 +30,6 @@ namespace TravelingWebsite.Models
             base.RemoveLine(package);
             Session?.SetJson("Booking", this);
         }
-
         public override void Clear()
         {
             base.Clear();

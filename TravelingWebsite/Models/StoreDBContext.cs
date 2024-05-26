@@ -7,5 +7,6 @@ namespace TravelingWebsite.Models
         public StoreDBContext(DbContextOptions<StoreDBContext> options) : base(options) { }
 
         public DbSet<Package> Packages => Set<Package>();
+        public DbSet<Order> Orders => Set<Order>();
     }
 }
