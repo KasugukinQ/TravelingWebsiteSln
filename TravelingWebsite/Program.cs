@@ -20,6 +20,7 @@ builder.Services.AddSession();
 builder.Services.AddScoped<Booking>(sp => SessionBooking.GetBooking(sp));
 builder.Services.AddSingleton<IHttpContextAccessor,
     HttpContextAccessor>();
+builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 
@@ -43,6 +44,8 @@ app.MapControllerRoute("pagination",
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+app.MapBlazorHub();
+app.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
 
 SeedData.EnsurePopulated(app);
 

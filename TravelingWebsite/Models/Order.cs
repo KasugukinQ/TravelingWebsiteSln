@@ -17,7 +17,11 @@ namespace TravelingWebsite.Models
 
         [Required(ErrorMessage = "Please enter the first address line")]
         public string? Line1 { get; set; }
+
+        [Required(ErrorMessage = "Please select your ending date!")]
         public string? Line2 { get; set; }
+
+        [Required(ErrorMessage = "Please select your starting date!")]
         public string? Line3 { get; set; }
 
         [Required(ErrorMessage = "Please enter a city.")]

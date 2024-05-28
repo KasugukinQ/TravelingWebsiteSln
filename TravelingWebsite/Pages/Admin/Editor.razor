@@ -1,0 +1,79 @@
+﻿@page "/admin/packages/edit/{id:long}"
+@page "/admin/packages/create/"
+@inherits OwningComponentBase<IStoreRepository>
+
+    <style>
+        div.validation-mesage { color: rgb(220, 53, 69); font-weight: 500}
+    </style>
+
+    <h3 class="bg-ThemeColor text-white text-center p-1">
+        @TitleText a Package
+    </h3>
+    <EditForm Model="Package" OnValidSubmit="SavePackage">
+        <DataAnnotationsValidator/>
+    @if (Package.PackageID.HasValue && Package.PackageID.Value != 0)
+    {
+        <div class="form-group">
+            <label>ID</label>
+            <input class="form-control" type="text" value="@Package.PackageID" disabled />
+        </div>
+    }
+    <div class="form-group">
+        <label>Name</label>
+        <ValidationMessage For="@(() => Package.Name)" />
+        <InputText class="form-control" @bind-value="Package.Name" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <ValidationMessage For="@(() => Package.Description)" />
+        <InputText class="form-control" @bind-value="Package.Description" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <ValidationMessage For="@(() => Package.Price)" />
+        <InputNumber class="form-control" @bind-Value="Package.Price" />
+    </div>
+    <div class="mt-2">
+        <button type="submit" class="btn btn-ThemeColor">@TitleText>Save</button>
+        <NavLink class="btn btn-secondary" href="/admin/packages">
+            Cancel
+        </NavLink>
+    </div>
+</EditForm>
+
+@code {
+    public IStoreRepository Repository => Service;
+
+    [Inject]
+    public NavigationManager? NavigationManager { get; set; }
+
+    [Parameter]
+    public long Id { get; set; } = 0;
+
+    public Package Package { get; set; } = new Package();
+
+    protected override void OnParametersSet()
+    {
+        if (Id != 0)
+        {
+            Package = Repository.Packages.FirstOrDefault(p => p.PackageID == Id) ?? new();
+        }
+    }
+
+    public void SavePackage()
+    {
+        if (Id == 0)
+        {
+            Repository.CreatePackage(Package);
+        }
+        else
+        {
+            Repository.SavePackage(Package);
+        }
+        NavigationManager?.NavigateTo("/admin/packages");
+    }
+
+    public string ThemeColor => Id == 0 ? "primary" : "warning";
+    public string TitleText => Id == 0 ? "Create" : "Edit";
+}
+
